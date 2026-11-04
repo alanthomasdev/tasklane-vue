@@ -1,0 +1,179 @@
+/* Global styles: colour tokens, base elements, shared buttons, page layout and dialog fields.
+   Styles that belong to one screen or component live inside that .vue file. */
+
+:root {
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --bg: #EEF0FB;
+  --surface: #FFFFFF;
+  --ink: #14163A;
+  --muted: #7C81A2;
+  --line: #E8EAF6;
+  --field: #F3F4FA;
+  --accent: #5468FF;
+  --accent-text: #4256F0;
+  --on-accent: #FFFFFF;
+  --shadow: 0 30px 60px -28px rgba(54, 66, 170, .38), 0 6px 18px -8px rgba(54, 66, 170, .12);
+  --scrim: rgba(12, 14, 46, .45);
+
+  --indigo: #5468FF; --indigo-soft: #E9ECFF; --indigo-on: #FFFFFF;
+  --rose:   #E5506E; --rose-soft:   #FDEBEF; --rose-on:   #FFFFFF;
+  --amber:  #F2B53C; --amber-soft:  #FFF5D9; --amber-on:  #2B2100;
+  --mint:   #2DBB8B; --mint-soft:   #E1F7EE; --mint-on:   #04271B;
+
+  --r-card: 26px;
+  --gutter: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C0D1E; --surface: #151731; --ink: #ECEEFF; --muted: #8F94BA; --line: #26294A; --field: #1D2040;
+    --accent: #6F80FF; --accent-text: #98A5FF; --on-accent: #0C0D1E;
+    --shadow: 0 30px 60px -28px rgba(0, 0, 0, .7), 0 6px 18px -8px rgba(0, 0, 0, .4);
+    --scrim: rgba(3, 4, 16, .62);
+    --indigo: #6F80FF; --indigo-soft: #232958; --indigo-on: #0C0D1E;
+    --rose: #F0647F;   --rose-soft: #3B2037;   --rose-on: #1E0710;
+    --amber: #F5BE50;  --amber-soft: #3A3120;
+    --mint: #3CCB9B;   --mint-soft: #17342F;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C0D1E; --surface: #151731; --ink: #ECEEFF; --muted: #8F94BA; --line: #26294A; --field: #1D2040;
+  --accent: #6F80FF; --accent-text: #98A5FF; --on-accent: #0C0D1E;
+  --shadow: 0 30px 60px -28px rgba(0, 0, 0, .7), 0 6px 18px -8px rgba(0, 0, 0, .4);
+  --scrim: rgba(3, 4, 16, .62);
+  --indigo: #6F80FF; --indigo-soft: #232958; --indigo-on: #0C0D1E;
+  --rose: #F0647F;   --rose-soft: #3B2037;   --rose-on: #1E0710;
+  --amber: #F5BE50;  --amber-soft: #3A3120;
+  --mint: #3CCB9B;   --mint-soft: #17342F;
+  color-scheme: dark;
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 500 15px/1.45 var(--font); -webkit-tap-highlight-color: transparent; overflow-x: hidden;
+}
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+input, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.em { font-style: normal; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-weight: 400; }
+.av { display: block; }
+
+/* Task colours: an element with c-indigo etc. gets --c (main), --on (text on main) and --soft (light tint). */
+.c-indigo { --c: var(--indigo); --on: var(--indigo-on); --soft: var(--indigo-soft); }
+.c-rose   { --c: var(--rose);   --on: var(--rose-on);   --soft: var(--rose-soft); }
+.c-amber  { --c: var(--amber);  --on: var(--amber-on);  --soft: var(--amber-soft); }
+.c-mint   { --c: var(--mint);   --on: var(--mint-on);   --soft: var(--mint-soft); }
+
+/* ---------- shared buttons ---------- */
+.icon-btn { width: 46px; height: 46px; border-radius: 50%; background: var(--field); display: grid; place-items: center; color: var(--ink); flex: none; }
+.icon-btn.sm { width: 38px; height: 38px; }
+.icon-btn:active { transform: scale(.94); }
+.avatar { width: 46px; height: 46px; border-radius: 15px; overflow: hidden; background: #FFC83D; box-shadow: 0 10px 20px -8px rgba(255, 200, 61, .7); flex: none; }
+.avatar .av { width: 100%; height: 100%; }
+.link { color: var(--muted); font-weight: 600; font-size: 13px; padding: 6px 2px; }
+.link:hover { color: var(--accent-text); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 22px;
+  border-radius: 16px; background: var(--accent); color: var(--on-accent); font-weight: 700; white-space: nowrap;
+  box-shadow: 0 14px 22px -12px var(--accent);
+}
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary .ic { width: 18px; height: 18px; stroke-width: 2.5; }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 0 18px;
+  border-radius: 16px; background: var(--field); font-weight: 700; white-space: nowrap;
+}
+.btn-ghost.danger { color: var(--rose); }
+.btn-ghost.danger.armed { background: var(--rose); color: var(--rose-on); }
+.btn-ghost .ic { width: 18px; height: 18px; }
+.grow { flex: 1; }
+
+/* round tick button used in lists and the timeline */
+.check {
+  width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  border: 2px solid var(--c); background: var(--surface); color: transparent;
+}
+.check .ic { width: 14px; height: 14px; stroke-width: 3.2; }
+.is-done > .check { background: var(--c); color: var(--on); }
+
+/* ---------- page layout ---------- */
+.deco { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.deco::before {
+  content: ""; position: absolute; width: 90vmax; height: 90vmax; right: -48vmax; bottom: -58vmax; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent), transparent 62%);
+}
+.deco i { position: absolute; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--accent) 20%, transparent); }
+.deco i:nth-child(1) { width: 26px; height: 26px; left: 9%; top: 12%; }
+.deco i:nth-child(2) { width: 18px; height: 18px; right: 8%; top: 7%; }
+.deco i:nth-child(3) { width: 34px; height: 34px; left: 6%; bottom: 9%; }
+
+.app { position: relative; z-index: 1; }
+.panel {
+  background: var(--surface); box-shadow: var(--shadow); min-width: 0;
+  padding-top: 24px; padding-bottom: 128px;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+/* Phones: one screen at a time, switched by the tab bar. */
+@media (max-width: 899px) {
+  body {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 10px);
+    padding-left: max(10px, env(safe-area-inset-left, 0px));
+    padding-right: max(10px, env(safe-area-inset-right, 0px));
+  }
+  .app { max-width: 560px; margin: 0 auto; }
+  .panel { border-radius: 40px 40px 0 0; min-height: calc(100dvh - env(safe-area-inset-top, 0px) - 10px); }
+  .app[data-view="home"] > .planner, .app[data-view="plan"] > .home { display: none; }
+}
+
+/* Laptops: Home and Planner side by side, like two phones. */
+@media (min-width: 900px) {
+  body { padding: 32px 24px; }
+  .app { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; max-width: 1120px; margin: 0 auto; }
+  .panel { border-radius: 40px; padding: 28px 30px 32px; min-height: calc(100dvh - 64px); }
+  .only-phone { display: none !important; }
+}
+
+/* ---------- dialogs (task sheet and settings) ---------- */
+dialog {
+  border: 0; padding: 0; background: var(--surface); color: var(--ink);
+  width: 100%; max-width: 500px; max-height: 94dvh; margin: auto auto 0; border-radius: 30px 30px 0 0; box-shadow: var(--shadow); overflow: auto;
+}
+dialog::backdrop { background: var(--scrim); backdrop-filter: blur(3px); }
+dialog[open] { animation: sheet .22s ease-out; }
+@keyframes sheet { from { transform: translateY(24px); opacity: 0; } }
+@media (min-width: 600px) { dialog { margin: auto; border-radius: 30px; } }
+dialog form {
+  padding: 22px max(22px, env(safe-area-inset-left, 0px)) calc(22px + env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 16px;
+}
+.dlg-head { display: flex; align-items: center; justify-content: space-between; }
+.dlg-head h2 { font-size: 21px; font-weight: 800; letter-spacing: -.01em; }
+.dlg-actions { display: flex; gap: 10px; margin-top: 4px; }
+
+.field { display: grid; gap: 7px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.field > span, .field > legend, .prog-label span { font-size: 12.5px; font-weight: 700; color: var(--muted); letter-spacing: .02em; padding: 0; }
+.field input[type="text"], .field input[type="date"], .field input[type="time"], .field textarea {
+  width: 100%; min-width: 0; border: 2px solid transparent; background: var(--field); border-radius: 16px; padding: 13px 14px; outline: none; font-weight: 600;
+}
+.field textarea { resize: none; font-weight: 500; }
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.err { color: var(--rose); font-weight: 700; font-size: 12.5px; }
+.hint { font-size: 13px; color: var(--muted); font-weight: 500; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
